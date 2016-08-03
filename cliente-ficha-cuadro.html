@@ -1,0 +1,75 @@
+﻿ <!--POLYMER-->
+<link rel="import" href="../bower_components/webcomponentsjs/webcomponents.js" />
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+
+
+
+<dom-module id="cliente-ficha-cuadro" attributes="uno">
+
+  <template>
+
+    <link rel="stylesheet" href="../Content/bootstrap.css" />
+    <link rel="stylesheet" href="../Content/Site.css" />
+    <link rel="stylesheet" href="../Content/NuboOptica.css" />
+
+
+    <div class='wow zoomIn col-xs-12 col-md-4'>
+
+      <div class='blog-date-wrapper'>
+        <!-- href="/Clientes/DetalleCliente?IdCliente={{uno.IDCLIENTE}}"-->
+        <a class='floatleft' on-click="detallecliente" detallecliente="{{uno.IDCLIENTE}}" nombrecliente="{{uno.NOMBRE}} {{uno.APELLIDO1}} {{uno.APELLIDO2}}">  {{uno.NOMBRE}} {{uno.APELLIDO1}} {{uno.APELLIDO2}} </a> 
+        <span class='clearboth'> &nbsp; </span>
+      </div>
+
+      <div class='blog-container'>
+        <div class='row'>
+          <div class='col-md-4'>
+            <!--<a href="/Clientes/DetalleCliente?IdDetalle={{uno.IDCLIENTE}}" >--> 
+            <img class='img-responsive' src='http://static.squarespace.com/static/523ce201e4b0cd883dbb8bbf/t/53cf1da8e4b09630bab0c5c3/1405035267633/profile-icon.png' on-click="detallecliente" detallecliente="{{uno.IDCLIENTE}}"  nombrecliente="{{uno.NOMBRE}} {{uno.APELLIDO1}} {{uno.APELLIDO2}}" alt='Image' />
+            <!--</a>-->
+          </div>
+
+          <div class='col-md-8'>
+            <p>
+              {{uno.NIF}}
+              <br />
+              {{uno.FECHANACIMIENTOYEDAD}}
+              <br />
+              {{uno.TELEFONO}}
+              <br />
+              {{uno.EMAIL}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </template>
+
+
+  <script>
+
+    Polymer({
+
+      is: "cliente-ficha-cuadro",
+
+      properties: {
+        uno: { type: Object, reflectToAttribute: true }
+      },
+
+      detallecliente: function (e) {
+        // Current target is the node that fired the event, It has our stored parameter "{{item}}" as a value of "someFunction"
+        var id = e.currentTarget.detallecliente;
+        var nom = e.currentTarget.nombrecliente;
+
+        // Do something with item
+        var w = window.open('/Clientes/DetalleCliente?idcliente=' + id + "&nombrecliente=" + nom, '_blank');
+        //w.document.title = nom;
+      }
+
+    });
+
+  </script>
+</dom-module>

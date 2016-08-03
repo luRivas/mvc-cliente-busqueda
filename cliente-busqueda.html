@@ -1,0 +1,105 @@
+﻿ <!--POLYMER-->
+<link rel="import" href="../bower_components/webcomponentsjs/webcomponents.js" />
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+
+<link rel="import" href="cliente-ficha-cuadro.html" />
+
+
+<dom-module id="cliente-busqueda" attributes="nombre dni telefono email datos">
+
+  <template>
+
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/estilo-cliente-busqueda.css" />
+
+
+    <!-- Filtros para la busqueda de clientes-->
+    <div class="form-horizontal">
+      <div class="form-group col-sm-12" style="padding-top:15px; padding-left:0px;">
+        <div class="row">
+          <ul style="list-style:none;">
+            <li class="liLabel" style="width:110px;"><label class="control-label" style="text-align:left; font-weight:200; color:black;">Informe uno:</label></li>
+            <li class="liCampo"> <input type="text" id="tbBusquedaNombre" placeholder="Búsqueda por Nombre" value="{{nombre::input}}" style="width:170px;" /> </li>
+            <li class="liCampo"> <input type="text" id="tbBusquedaDNI" placeholder="Búsqueda por DNI" value="{{dni::input}}" style="width:150px;" /> </li>
+            <li class="liCampo"> <input type="text" id="tbBusquedaTelefono" placeholder="Búsqueda por Teléfono" value="{{telefono::input}}" style="width:180px;" /> </li>
+            <li class="liCampo"> <input type="text" id="tbBusquedaEmail" placeholder="Búsqueda por Email" value="{{email::input}}" style="width:160px;" /> </li>
+            <li class="liCampo">  <input type="button" id='btBuscar' class="mButton" value="Buscar"> </li> <!--onclick="BuscarClientes();"-->
+            <li class="liCampo">  <input type="button" id='btNuevo' class="mButton" value="Nuevo"> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="dMensajeRellene" class="alert alert-info fade in" hidden>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Información!</strong>  Rellene los campos para realizar la búsqueda.
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="dMensajeNoResultados" class="alert alert-warning fade in" hidden>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Atención!</strong> No hay resultados la búsqueda.
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Listado de clientes -->
+    <div id='mResultado' class='row'>
+      <div id='blog' class='blog-wrapper section-padding' style='background-color:#FFF; padding-top:0px;'>
+        <template is="dom-repeat" items="{{datos}}" as="uno">
+          <cliente-ficha-cuadro uno="{{uno}}"></cliente-ficha-cuadro>
+        </template>
+      </div>
+    </div>
+
+
+  </template>
+
+
+  <script>
+
+    $(function () {
+      InicializaPaginaBusqueda();
+    });
+
+    function keypressHandler(e) {
+      if (e.which == 13) {
+        BuscarClientes();
+      }
+    }
+
+    Polymer({
+
+      is: "cliente-busqueda",
+
+      properties: {
+        nombre: { type: String, reflectToAttribute: true, notify: true },
+        telefono: { type: String, reflectToAttribute: true, notify: true },
+        dni: { type: String, reflectToAttribute: true, notify: true },
+        email: { type: String, reflectToAttribute: true, notify: true },
+        datos: { type: Object, reflectToAttribute: true }
+      }
+
+    });
+
+  </script>
+</dom-module>
+
+
+<script src="js/Funciones.js"></script>
+<script src="js/Funciones-cliente-busqueda.js"></script>
+
+
+
+
